@@ -1,9 +1,11 @@
+async function buscaEndereco (cep) {    
+    var mensagemErro = document.getElementById('erro');
+    mensagemErro.innerHTML = "";
 
-
-async function buscaEndereco (cep) {
     try {
     const consultaCep = await fetch( `https://viacep.com.br/ws/${cep}/json` );
     const consultaCepConvertida = await consultaCep.json();
+
     if (consultaCepConvertida.erro) {
         throw Error('CEP não existente!');
     }
@@ -21,10 +23,9 @@ async function buscaEndereco (cep) {
     return consultaCepConvertida;
     
     } catch (erro) {
+        mensagemErro.innerHTML = `<p>Cep inválido, digite um Cep válido.</p>`;
         console.log(erro)
     }
-    
-
 }
 
 var cep = document.getElementById('cep');
